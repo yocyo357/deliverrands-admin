@@ -1,25 +1,28 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import { Route, BrowserRouter, Switch } from 'react-router-dom'
+import Login from './pages/login_page/Login'
+import Home from './pages/home_page/Home';
+import GroceryAndPalengkeContextProvider from './contexts/GroceryAndPalengkeContext';
+import GroceryOrdersContextProvider from './contexts/GroceryOrdersContext';
+import PalengkeOrdersContextProvider from './contexts/PalengkeOrderContext';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GroceryOrdersContextProvider>
+      <PalengkeOrdersContextProvider>
+        <GroceryAndPalengkeContextProvider>
+          <BrowserRouter>
+            <Switch >
+              <div>
+                <Route exact path="/" component={Login} />
+                <Route path="/home" component={Home} />
+              </div>
+            </Switch >
+          </BrowserRouter>
+        </GroceryAndPalengkeContextProvider>
+      </PalengkeOrdersContextProvider>
+    </GroceryOrdersContextProvider>
   );
 }
 
